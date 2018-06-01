@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2043
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzReplicator", "AzReplicator\AzReplicator.csproj", "{8B81AF3E-587D-4F01-AC02-97A03852CB06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzReplicatorLibrary", "AzReplicatorLibrary\AzReplicatorLibrary.csproj", "{05ADBFF5-126E-4133-B8E5-D33F1981AFAC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8B81AF3E-587D-4F01-AC02-97A03852CB06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B81AF3E-587D-4F01-AC02-97A03852CB06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B81AF3E-587D-4F01-AC02-97A03852CB06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B81AF3E-587D-4F01-AC02-97A03852CB06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05ADBFF5-126E-4133-B8E5-D33F1981AFAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05ADBFF5-126E-4133-B8E5-D33F1981AFAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05ADBFF5-126E-4133-B8E5-D33F1981AFAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05ADBFF5-126E-4133-B8E5-D33F1981AFAC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {95051D2F-B736-43F4-AF3D-B04BC0A15D85}
+	EndGlobalSection
+EndGlobal
