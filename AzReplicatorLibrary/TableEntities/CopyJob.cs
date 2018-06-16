@@ -41,7 +41,7 @@ namespace AzReplicatorLibrary.TableEntities
             Update(state);
         }
 
-        private void Update(CopyState state)
+        public void Update(CopyState state)
         {
             copyId = state.CopyId;
             copyStatus = state.Status.ToString();
@@ -57,29 +57,7 @@ namespace AzReplicatorLibrary.TableEntities
 
         }
 
-        public async void RefreshStatus()
-        {
-            TableStorage<ReplicationStorageAccount> tableStorage = new TableStorage<ReplicationStorageAccount>("accounts");
-
-            var account = await tableStorage.GetSingleAsync("account", targetStorageAccount);
-            if(account != null)
-            {               
-                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(account.connectionString);                
-                CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-                CloudBlobContainer container = blobClient.GetContainerReference(targetContainer);
-                CloudBlockBlob blob = container.GetBlockBlobReference(targetBlobName);
-              
-                await blob.FetchAttributesAsync();
-                CopyState state = blob.CopyState;
-                Update(state);
-
-                TableStorage<CopyJob> tableCopyJobStorage = new TableStorage<CopyJob>("jobs");
-                await tableCopyJobStorage.InsertOrReplaceAsync(this);
-
-            }
-          
-          
-        }
+       
 
 
 

@@ -10,7 +10,6 @@ namespace AzReplicatorLibrary
 {
     public static class Common
     {
-        public static string storageAccountConnectionString;        
         public static string SerializeToJson(object o)
         {
             return JsonConvert.SerializeObject(o);

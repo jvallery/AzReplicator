@@ -20,10 +20,10 @@ namespace AzReplicatorLibrary.DataLayer
 
         int retryCount = 0;
 
-       public BlobStorage(string containername) : this (containername, Common.storageAccountConnectionString) { }
-        public BlobStorage(string containername, string storageAccountConnectionString)
+       
+        public BlobStorage(CloudStorageAccount account, string containername)
         {
-            storageAccount = CloudStorageAccount.Parse(storageAccountConnectionString);
+            storageAccount = account;
             storageAccountId = Common.MD5(storageAccount.BlobEndpoint.ToString());
             blobClient = storageAccount.CreateCloudBlobClient();
             container = blobClient.GetContainerReference(containername);
@@ -128,32 +128,7 @@ namespace AzReplicatorLibrary.DataLayer
         }
 
 
-        public void CopyBlobAsync(Uri sourceBlobUri, string targetBlobName)
-        {
-            Task.Run(async () =>
-            {
-                try
-                {
-                    CloudBlockBlob blob = container.GetBlockBlobReference(targetBlobName);
-                    await blob.StartCopyAsync(sourceBlobUri);
-
-                    await blob.FetchAttributesAsync();
-                    CopyState state = blob.CopyState;
-
-                    TableStorage<CopyJob> tableStorage = new TableStorage<CopyJob>("jobs");
-                    CopyJob job = new CopyJob(state, container.Name, targetBlobName, blob.Uri.ToString(), storageAccountId);
-                    await tableStorage.InsertOrReplaceAsync(job);
-
-                    Console.WriteLine(blob.Uri.ToString());
-
-                }
-                catch (Exception ex)
-                {
-                    Logger.TrackException(ex, 0, "Error in StartCopyAsync");
-                }
-
-            });
-        }
+    
 
 
         public async Task<List<KeyValuePair<string, Uri>>> ListBlobsUriWithSas(int readValidityInHours)

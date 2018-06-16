@@ -9,14 +9,21 @@ namespace AzReplicatorLibrary.TableEntities
 {
     public class AzReplicatorEventGridEvent : TableEntity
     {
-        public string eventJson {get; set; }
+        public string eventJson { get; set; }
+        public string subject { get; set; }
+        public string eventType { get; set; }
+        public DateTime eventTime { get; set; }
+        public string id { get; set; }
+        public string dataVersion { get; set; }
+        public string metadataVersion { get; set; }
 
-        public AzReplicatorEventGridEvent() {
+        public string topic { get; set; }
+
+        public AzReplicatorEventGridEvent() { }
+        public AzReplicatorEventGridEvent(string id)
+        {
             PartitionKey = DateTime.Today.ToUniversalTime().Ticks.ToString();
-            RowKey = DateTime.Now.ToUniversalTime().Ticks.ToString();
+            RowKey = id;
         }
-
-
-
     }
 }

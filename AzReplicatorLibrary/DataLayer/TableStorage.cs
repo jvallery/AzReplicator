@@ -11,18 +11,16 @@ namespace AzReplicatorLibrary.DataLayer
 
     public class TableStorage<T> where T : TableEntity, new()
     {
-        CloudStorageAccount storageAccount; 
-        CloudTableClient tableClient;
-        CloudTable table;
+        public CloudStorageAccount storageAccount; 
+        public CloudTableClient tableClient;
+        public CloudTable table;
 
         public static Dictionary<string, bool> tableExists = new Dictionary<string, bool>();
 
-        public TableStorage(string tableName) : this(tableName, Common.storageAccountConnectionString) { }
-
-        public TableStorage(string tableName, string storageAccountConnectionString)
+        public TableStorage(CloudStorageAccount account, string tableName)
         {
             // Create the table client.
-            storageAccount = CloudStorageAccount.Parse(storageAccountConnectionString);
+            storageAccount = account;
             tableClient = storageAccount.CreateCloudTableClient();
             table = tableClient.GetTableReference(tableName);
 
@@ -148,10 +146,11 @@ namespace AzReplicatorLibrary.DataLayer
         }
 
         //DELETE operations
-        public async void Delete(T entity)
+        public async Task Delete(T entity)
         {
-            TableOperation insertOperation = TableOperation.Delete(entity);
-            await table.ExecuteAsync(insertOperation);
+            TableOperation deleteOperation = TableOperation.Delete(entity);
+            deleteOperation.Entity.ETag = "*";
+            await table.ExecuteAsync(deleteOperation);
 
         }
     }
